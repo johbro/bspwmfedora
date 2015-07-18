@@ -1,0 +1,33 @@
+#! /bin/sh
+
+PANEL_FIFO=/tmp/panel-fifo
+PANEL_HEIGHT=24
+PANEL_FONT_FAMILY="-*-terminus-medium-r-normal-*-12-*-*-*-c-*-*-1"
+export PANEL_FIFO PANEL_HEIGHT PANEL_FONT_FAMILY
+
+
+bspc config border_width        2
+bspc config window_gap         12
+
+bspc config split_ratio        0.52
+bspc config borderless_monocle  true
+bspc config gapless_monocle     true
+bspc config focus_by_distance   true
+
+bspc monitor -d TERM WEB IRC GRAPHICS
+
+bspc rule -a Gimp desktop=^8 follow=on floating=on
+bspc rule -a Chromium desktop=^2
+bspc rule -a mplayer2 floating=on
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+~/bin/panel &
+
+/usr/bin/feh --bg-fill ~/Pictures/Wallpapers/vectorCrossCubes.png &
+xrdb -merge ~/.Xresources &
+
+
+/usr/bin/xscreensaver -no-splash &
+
+compton &
